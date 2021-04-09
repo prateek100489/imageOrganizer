@@ -1,5 +1,15 @@
 This tool is developed for organizing media files into proper directory
-structures, using their creation time.
+structures, using their creation time. Script is written using bash and
+only(non-standard) requires ```exiftool```  installed. Multiple kind of  
+hierarchy could be created using this tool which is configurable via 
+arguments. 
+
+However, format of media is non-configurable via arguments, but very
+easy to change the code to add or remove formats. 
+
+
+
+
 
 The output structures are:
 
