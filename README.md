@@ -3,24 +3,24 @@ structures, using their creation time.
 
 The output structures are:
 
-Arrange media files in the year directory then create sub-directory for each month followed by sub-directories of each date. 
+Arrange media files in the year directory then create sub-directory for each month followed by sub-directories of each date. For this hierarchy use ```-f YYYYMMDD``` 
 
 ```
 - YYYY
   |_MM
     |_DD
 ```
-Arrange media files in the year directory then create sub-directory for each month.
+Arrange media files in the year directory then create sub-directory for each month. For this hierarchy use ```-f YYYYMM``` 
 ```
 - YYYY
   |_MM
 ```
 
-Arrange media files in the year directory.
+Arrange media files in the year directory. For this hierarchy use ```-f YYYY``` 
 ```
 - YYYY
 ```
-The media files supported are:
+The media files supported are: 
 ```
 - jpeg
 - jpg
@@ -28,7 +28,7 @@ The media files supported are:
 - mp4
 ```
 If you want to add/remove any format, its simple and could be manually modified
-in the following lines of code
+in the code, this is not configurable via arguments. 
 
 
 Syntax:
