@@ -12,10 +12,21 @@ The output structures are:
   |_MM
 - YYYY
 The media files supported are:
+- png
+- 3gp
+- MOV
+- m4v
+- avi
+- gif
 - jpeg
 - jpg
-- png
+- mkv
+- mpg
+- bmp
+- flv
+- wmv
 - mp4
+
 If you want to add/remove any format, its simple and could be manually modified
 in the following lines of code"
 
