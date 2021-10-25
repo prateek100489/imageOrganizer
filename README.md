@@ -32,9 +32,20 @@ Arrange media files in the year directory. For this hierarchy use ```-f YYYY```
 ```
 The media files supported are: 
 ```
+The media files supported are:
+- png
+- 3gp
+- MOV
+- m4v
+- avi
+- gif
 - jpeg
 - jpg
-- png
+- mkv
+- mpg
+- bmp
+- flv
+- wmv
 - mp4
 ```
 If you want to add/remove any format, its simple and could be manually modified
