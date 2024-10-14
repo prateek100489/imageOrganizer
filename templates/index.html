@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Gallery</title>
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <h3 class="text-center my-3">Current Directory: {{ current_dir or "Root Directory" }}</h3>
+
+    <!-- Filter dropdown -->
+    <div class="filter-container mb-4 text-center">
+        <form method="GET" action="{{ url_for('serve_directory', subpath=current_dir) }}">
+            <label for="media_type">Filter by type:</label>
+            <select class="form-select d-inline-block w-auto" name="media_type" id="media_type" onchange="this.form.submit()">
+                <option value="">All</option>
+                <option value="image" {% if media_type == 'image' %}selected{% endif %}>Images</option>
+                <option value="video" {% if media_type == 'video' %}selected{% endif %}>Videos</option>
+                <option value="audio" {% if media_type == 'audio' %}selected{% endif %}>Audio</option>
+            </select>
+        </form>
+    </div>
+
+    <!-- Display gallery items -->
+    {% if items %}
+    <div class="row">
+        {% for item in items %}
+            <div class="col-lg-3 col-md-4 col-sm-6 gallery-item mb-4">
+                {% if not item.is_dir %}
+                    {% if item.name.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')) %}
+                        <a href="{{ url_for('serve_directory', subpath=(current_dir ~ '/' if current_dir else '') ~ item.name) }}" target="_blank">
+                            <img src="{{ url_for('serve_directory', subpath=(current_dir ~ '/' if current_dir else '') ~ 'thumbnails/' ~ item.name) }}"
+                                 onerror="this.src='{{ url_for('serve_directory', subpath=(current_dir ~ '/' if current_dir else '') ~ item.name) }}'"
+                                 alt="{{ item.name }}" class="img-fluid">
+                        </a>
+                    {% elif item.name.endswith(('.mp4', '.webm', '.mkv', '.avi')) %}
+                        <a href="{{ url_for('serve_video', filename=(current_dir ~ '/' if current_dir else '') ~ item.name) }}" target="_blank">
+                            <video class="img-fluid">
+                                <source src="{{ url_for('serve_video', filename=(current_dir ~ '/' if current_dir else '') ~ item.name) }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </a>
+                    {% elif item.name.endswith(('.mp3', '.wav', '.ogg', '.m4a')) %}
+                        <audio controls class="w-100">
+                            <source src="{{ url_for('serve_directory', subpath=(current_dir ~ '/' if current_dir else '') ~ item.name) }}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    {% else %}
+                        <a href="{{ url_for('serve_directory', subpath=(current_dir ~ '/' if current_dir else '') ~ item.name) }}" target="_blank">
+                            {{ item.name }}
+                        </a>
+                    {% endif %}
+
+                    {% if g.user and g.user.is_admin %}
+                        <form action="{{ url_for('delete_file', filename=(current_dir ~ '/' if current_dir else '') ~ item.name) }}" method="POST" class="delete-form mt-2" onsubmit="return confirm('Are you sure you want to delete this file?');">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    {% endif %}
+
+                {% else %}
+                    <a href="{{ url_for('serve_directory', subpath=(current_dir ~ '/' if current_dir else '') ~ item.name) }}" class="d-block">
+                        📁 {{ item.name }}
+                    </a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p class="text-center">No items found in this directory.</p>
+    {% endif %}
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
+        <ul class="pagination">
+            {% if current_page > 1 %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('serve_directory', subpath=current_dir, page=current_page-1, media_type=media_type) }}">Previous</a></li>
+            {% endif %}
+            {% for num in page_numbers %}
+                {% if num == '...' %}
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                {% else %}
+                    <li class="page-item {% if num == current_page %}active{% endif %}">
+                        <a class="page-link" href="{{ url_for('serve_directory', subpath=current_dir, page=num, media_type=media_type) }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% if current_page < total_pages %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('serve_directory', subpath=current_dir, page=current_page+1, media_type=media_type) }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    {% include 'footer.html' %}
+
+</body>
+</html>
+

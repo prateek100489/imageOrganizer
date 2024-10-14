@@ -1,0 +1,68 @@
+<div class="footer bg-dark text-white py-4 mt-5">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5>About Us</h5>
+                <p>Super simple tool to organize the media files and view over network. This is not build for production grade use cases.</p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="{{ url_for('index') }}" class="text-white">Home</a></li>
+                    <li><a href="{{ url_for('change_password') }}" class="text-white">Change Password</a></li>
+                    <li><a href="{{ url_for('login') }}" class="text-white">Login</a></li>
+                    {% if g.user and g.user.is_admin %}
+                        <li><a href="{{ url_for('register') }}" class="text-white">Register New User</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Follow Us</h5>
+                <a href="#" class="text-white me-2"><i class="fab fa-facebook fa-lg"></i></a>
+                <a href="#" class="text-white me-2"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-white me-2"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="text-white"><i class="fab fa-linkedin fa-lg"></i></a>
+            </div>
+        </div>
+        <hr class="bg-light">
+        <p class="mb-0">&copy; 2024 Media Gallery. All rights reserved.</p>
+    </div>
+</div>
+
+<style>
+    .footer h5 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    
+    .footer p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+    
+    .footer a {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.3s ease;
+    }
+
+    .footer a:hover {
+        color: #007bff;
+    }
+
+    .footer .social-icons i {
+        transition: transform 0.3s ease;
+    }
+
+    .footer .social-icons i:hover {
+        transform: scale(1.2);
+    }
+
+    .footer hr {
+        opacity: 0.3;
+    }
+</style>
+
+<!-- FontAwesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+

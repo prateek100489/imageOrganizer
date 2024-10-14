@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+    
+    <h3>Upload a file to {{ current_dir or "Root Directory" }}</h3>
+    
+    <div class="upload-form">
+        <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload_file', subpath=current_dir) }}">
+            <label for="file">Choose a file:</label>
+            <input type="file" name="file" id="file" required>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+
+    <a href="{{ url_for('serve_directory', subpath=current_dir) }}">Back to Media Gallery</a>
+
+    {% include 'footer.html' %}
+</body>
+</html>
+

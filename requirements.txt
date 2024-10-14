@@ -1,0 +1,8 @@
+watchdog
+Pillow
+hachoir
+tqdm
+flask
+bcrypt
+flask_sqlalchemy
+python-dateutil
