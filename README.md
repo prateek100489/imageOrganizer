@@ -20,69 +20,77 @@ Watchdog (for directory monitoring)
 Hachoir (for extracting metadata from video files)
 Install the dependencies using the following:
 
-bash
-Copy code
+```
 pip install -r requirements.txt
+```
 Getting Started
+
 Clone the repository:
 
-bash
-Copy code
+```
 git clone https://github.com/yourusername/media-organizer.git
 cd media-organizer
+```
+
 Set up the virtual environment (optional but recommended):
 
-bash
-Copy code
+```
 python3 -m venv venv
 source venv/bin/activate
+```
 Install dependencies:
 
-bash
-Copy code
+```
 pip install -r requirements.txt
+```
+
 Set up the database:
 
 The application uses SQLite to store user data. When you first run the application, a default admin user will be created with the username admin and password adminpassword. You will be prompted to change the password on first login.
 
 Run the app to initialize the database:
 
-bash
-Copy code
-python script4.py --host --dest /path/to/organized/files
+```
+python manage_and_serve.py --host --dest /path/to/organized/files
+
+```
 Command-Line Options
 The tool provides several command-line options for organizing media files and hosting the web application.
 
 1. Organize Media Files
 To organize files from a source directory to a target destination based on metadata (EXIF data or filename), use the following:
 
-bash
-Copy code
-python script4.py --import-files --src /path/to/source --dest /path/to/organized/files
+```
+python manage_and_serve.py --import-files --src /path/to/source --dest /path/to/organized/files
 Options:
 --import-files: Triggers the organization of files.
 --src: The source directory containing unorganized media files.
 --dest: The destination directory where files will be organized.
 --dry-run: Simulates the organization process without moving files.
+```
+
 Example:
-bash
-Copy code
+```
 python script4.py --import-files --src /mnt/unorganized_media --dest /mnt/organized_media --dry-run
+```
 2. Host the Media Gallery
 To host the media files as a web gallery where users can view, upload, and manage files, use the following:
 
-bash
-Copy code
-python script4.py --host --dest /path/to/organized/files --port 6688
+```
+python manage_and_serve.py --host --dest /path/to/organized/files --port 6688
 Options:
 --host: Starts the Flask web server to serve the organized files.
 --dest: The destination directory that will be served over the web.
 --host-address: The address to bind the web server (default: 0.0.0.0).
 --port: The port on which the server will run (default: 6688).
+```
+
 Example:
-bash
-Copy code
+
+```
 python script4.py --host --dest /mnt/organized_media --port 6688
+```
+
 3. Organize Media by Uploading a Directory via Web Interface
 In addition to file uploads, users can upload directories to be organized via the web interface.
 
@@ -96,6 +104,8 @@ Admins can delete files from the gallery via the web interface.
 Secure login with user authentication.
 Admin users have additional privileges (e.g., deleting files).
 Non-admin users can view files and upload new files.
+
+
 Web Interface Features
 The web interface is a fully responsive media gallery built with Bootstrap. It provides the following features:
 
@@ -105,28 +115,10 @@ Directory Upload: Allows users to upload a directory and organize its files.
 Pagination: Large sets of media files are paginated for better navigation.
 Filter: Filter media by type (images, videos, audio).
 Admin Management: Admin users can delete files directly from the gallery.
-Pages Available:
-Gallery (Root): /
-The main gallery page listing all media files, with options to filter and paginate through the content.
 
-Login: /login
-Allows users to log in to access the media gallery.
-
-File Upload: /upload
-Provides an interface for users to upload new files to the gallery.
-
-Directory Upload: /upload-directory
-Allows users to upload an entire directory for organization.
-
-Change Password: /change_password
-Allows logged-in users to change their password.
-
-Register New User (Admin only): /register
-Allows admins to register new users to access the gallery.
 
 Directory Structure
-graphql
-Copy code
+```
 media-organizer/
 ├── static/                  # Static files (CSS, JS)
 ├── templates/               # HTML templates for Flask
@@ -139,6 +131,8 @@ media-organizer/
 ├── manage_and_serve.py      # Main Python script for organizing and serving media
 ├── requirements.txt         # Python dependencies
 └── README.md                # Documentation
+```
+
 License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
